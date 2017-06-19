@@ -24,6 +24,7 @@ const cli = meow(`
       -t, --strip-project-root   Strip the root path from file paths in the source map
       -w, --add-wildcard-prefix  Insert a wildcard prefix when stripping root path
       -o, --overwrite            Overwite previously uploaded source maps
+      --debug                    Print additional information for debugging
 
     Examples
       $ bugsnag-sourcemaps upload \\
@@ -103,5 +104,6 @@ Promise.resolve()
         return tasks.run();
     })
     .catch(err => {
-        // console.error(err);
+        if (conf.debug)
+            console.error(err);
     });

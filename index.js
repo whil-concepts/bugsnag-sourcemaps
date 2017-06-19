@@ -53,6 +53,10 @@ function validateOptions(options) {
   if (options.projectRoot && !path.isAbsolute(options.projectRoot)) {
     options.projectRoot = path.resolve(options.projectRoot);
   }
+  if (options.debug) {
+    console.log("Running with options:");
+    console.log(options);
+  }
   return options;
 }
 
