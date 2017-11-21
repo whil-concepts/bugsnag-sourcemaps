@@ -37,6 +37,8 @@ function applyDefaults(options) {
  * @returns {object}
  */
 function validateOptions(options) {
+  console.log("validateOptions")
+  console.log(options)
   if (typeof options.apiKey !== 'string') {
     throw new Error('You must provide a valid API key to upload sourcemaps to Bugsnag.');
   }
@@ -352,6 +354,8 @@ function cleanupTempFiles(options) {
  * @returns {Promise<string>}
  */
 function upload(options, callback) {
+  console.log("UPLOAD")
+  console.log(options)
   const promise = (
     Promise.resolve(options)
       .then(applyDefaults)
