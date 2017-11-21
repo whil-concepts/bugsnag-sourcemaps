@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+console.log("ARGV: ");
+console.log(process.argv);
+
 const meow = require('meow');
 const Listr = require('listr');
 const rc = require('rc');
