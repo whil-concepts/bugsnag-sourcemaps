@@ -4,10 +4,9 @@ const meow = require('meow');
 const Listr = require('listr');
 const rc = require('rc');
 const readPkgUp = require('read-pkg-up');
-const {upload} = require('./');
+const { upload } = require('./');
 
-const cli = meow(
-  `
+const cli = meow(`
     Usage
       $ bugsnag-sourcemaps upload
 
@@ -41,26 +40,26 @@ const cli = meow(
           --source-map dist/main.jsbundle.map \\
           --minified-file dist/main.jsbundle \\
           --upload-sources
-`,
-  {
-    alias: {
-      c: 'code-bundle-id',
-      e: 'endpoint',
-      h: 'help',
-      k: 'api-key',
-      m: 'minified-url',
-      n: 'upload-node-modules',
-      o: 'overwrite',
-      p: 'minified-file',
-      r: 'project-root',
-      s: 'source-map',
-      u: 'upload-sources',
-      v: 'app-version',
-      w: 'add-wildcard-prefix',
-    },
-    string: ['app-version'],
+`, {
+  alias: {
+    c: 'code-bundle-id',
+    e: 'endpoint',
+    h: 'help',
+    k: 'api-key',
+    m: 'minified-url',
+    n: 'upload-node-modules',
+    o: 'overwrite',
+    p: 'minified-file',
+    r: 'project-root',
+    s: 'source-map',
+    u: 'upload-sources',
+    v: 'app-version',
+    w: 'add-wildcard-prefix',
   },
-);
+  string: [
+    'app-version',
+  ],
+});
 
 const conf = {
   // Any cli-specific defaults (none currently)
@@ -87,8 +86,6 @@ for (const key in conf) {
   }
 }
 
-console.log('CONF: ');
-console.log(conf);
 const tasks = new Listr([
   {
     title: 'Uploading sourcemaps',
@@ -102,9 +99,10 @@ Promise.resolve()
       return (
         // If there was no appVersion specified, find the package.json within either
         // the project root, or the current working directory, and use that version.
-        readPkgUp(conf.projectRoot || process.cwd()).then(({pkg}) => {
-          if (pkg) conf.appVersion = pkg.version;
-        })
+        readPkgUp(conf.projectRoot || process.cwd())
+          .then(({ pkg }) => {
+            if (pkg) conf.appVersion = pkg.version;
+          })
       );
     }
   })
